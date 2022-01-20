@@ -34,7 +34,7 @@ public class Receita {
 	
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private TipoReceita tiporeceita;
+	private TipoReceita tipoReceita;
 
 	public Receita(Long id, @NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
 			YearMonth data, @NotNull TipoReceita tiporeceita) {
@@ -42,7 +42,7 @@ public class Receita {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tiporeceita = tiporeceita;
+		this.tipoReceita = tiporeceita;
 	}
 
 	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
@@ -50,7 +50,7 @@ public class Receita {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tiporeceita = tiporeceita;
+		this.tipoReceita = tiporeceita;
 	}
 	
 	public Receita() {}
@@ -88,11 +88,11 @@ public class Receita {
 	}
 
 	public TipoReceita getTiporeceita() {
-		return tiporeceita;
+		return tipoReceita;
 	}
 
 	public void setTipoReceita(TipoReceita tiporeceita) {
-		this.tiporeceita = tiporeceita;
+		this.tipoReceita = tiporeceita;
 	}
 
 	@Override
