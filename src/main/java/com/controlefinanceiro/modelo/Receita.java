@@ -1,11 +1,20 @@
 package com.controlefinanceiro.modelo;
 
-import java.time.LocalDateTime;
+import java.time.YearMonth;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.controlefinanceiro.modelo.enums.TipoReceita;
+import com.controlefinanceiro.utilidades.YearMonthDateAttributeConverter;
 
 @Entity
 public class Receita {
@@ -13,20 +22,38 @@ public class Receita {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message = "A descrição é obrigatória")
 	private String descricao;
 	
+	@NotNull
 	private double valor;
 	
-	private LocalDateTime data;
+	@Column(name = "data",columnDefinition = "date")
+	@Convert(converter = YearMonthDateAttributeConverter.class)
+	private YearMonth data;
 	
-	
-	public Receita(Long id, String descricao, double valor, LocalDateTime data) {
-		super();
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private TipoReceita tiporeceita;
+
+	public Receita(Long id, @NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data, @NotNull TipoReceita tiporeceita) {
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
+		this.tiporeceita = tiporeceita;
 	}
+
+	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data, @NotNull TipoReceita tiporeceita) {
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.tiporeceita = tiporeceita;
+	}
+	
+	public Receita() {}
 	
 	public Long getId() {
 		return id;
@@ -50,16 +77,24 @@ public class Receita {
 
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
+	}	
 
-	public LocalDateTime getData() {
+	public YearMonth getData() {
 		return data;
 	}
 
-	public void setData(LocalDateTime data) {
+	public void setData(YearMonth data) {
 		this.data = data;
 	}
-	
+
+	public TipoReceita getTiporeceita() {
+		return tiporeceita;
+	}
+
+	public void setTipoReceita(TipoReceita tiporeceita) {
+		this.tiporeceita = tiporeceita;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -1,39 +1,58 @@
 package com.controlefinanceiro.modelo;
 
-import java.time.LocalDateTime;
+import java.time.YearMonth;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.controlefinanceiro.modelo.enums.TipoDespesa;
-
+import com.controlefinanceiro.utilidades.YearMonthDateAttributeConverter;
 
 @Entity
+@Table(uniqueConstraints = 
+@UniqueConstraint(name = "UniqueDescAndDate", columnNames = { "descricao", "data" }))
 public class Despesa {
-	
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull
+
+	@NotBlank(message = "A descrição é obrigatória")
 	private String descricao;
-	
+
 	@NotNull
 	private double valor;
-	
-	@NotNull
-	private LocalDateTime data;
-	
+
+	@Column(name = "data",columnDefinition = "date")
+	@Convert(converter = YearMonthDateAttributeConverter.class)
+	private YearMonth data;
+
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private TipoDespesa tipoDespesa;
 	
-	public Despesa(Long id, String descricao, double valor, LocalDateTime data, TipoDespesa tipoDespesa) {
-		super();
+	public Despesa() { }
+	
+	public Despesa(Long id, @NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data, @NotBlank(message = "É preciso definir o tipo de despesa") TipoDespesa tipoDespesa) {
 		this.id = id;
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.tipoDespesa = tipoDespesa;
+	}
+	
+	public Despesa(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data, @NotBlank(message = "É preciso definir o tipo de despesa") TipoDespesa tipoDespesa) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
@@ -64,11 +83,11 @@ public class Despesa {
 		this.valor = valor;
 	}
 
-	public LocalDateTime getData() {
+	public YearMonth getData() {
 		return data;
 	}
 
-	public void setData(LocalDateTime data) {
+	public void setData(YearMonth data) {
 		this.data = data;
 	}
 
@@ -79,7 +98,7 @@ public class Despesa {
 	public void setTipoDespesa(TipoDespesa tipoDespesa) {
 		this.tipoDespesa = tipoDespesa;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
