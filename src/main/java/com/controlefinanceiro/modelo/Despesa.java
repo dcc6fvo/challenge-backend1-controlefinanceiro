@@ -34,6 +34,7 @@ public class Despesa {
 
 	@Column(name = "data",columnDefinition = "date")
 	@Convert(converter = YearMonthDateAttributeConverter.class)
+	@NotNull
 	private YearMonth data;
 
 	@Enumerated(EnumType.STRING)
