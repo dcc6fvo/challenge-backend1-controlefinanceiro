@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.controlefinanceiro.modelo.enums.TipoDespesa;
+import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.utilidades.YearMonthDateAttributeConverter;
 
 @Entity
@@ -39,25 +39,23 @@ public class Despesa {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private TipoDespesa tipoDespesa;
+	private Categoria categoria = Categoria.Outras;
 	
 	public Despesa() { }
 	
-	public Despesa(Long id, @NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
-			YearMonth data, @NotBlank(message = "É preciso definir o tipo de despesa") TipoDespesa tipoDespesa) {
-		this.id = id;
+	public Despesa(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tipoDespesa = tipoDespesa;
 	}
 	
 	public Despesa(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
-			YearMonth data, @NotBlank(message = "É preciso definir o tipo de despesa") TipoDespesa tipoDespesa) {
+			YearMonth data, @NotBlank(message = "É preciso definir o tipo de despesa") Categoria categoria) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tipoDespesa = tipoDespesa;
+		this.categoria = categoria;
 	}
 	
 	public Long getId() {
@@ -92,12 +90,12 @@ public class Despesa {
 		this.data = data;
 	}
 
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override

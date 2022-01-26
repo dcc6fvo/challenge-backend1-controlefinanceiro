@@ -12,11 +12,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class ErroDeValidacaoHandler {
@@ -39,6 +41,25 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<Object> handle(HttpMessageNotReadableException ex) {
+	
+		ErroDeFormularioDto erro = new ErroDeFormularioDto(ex.getHttpInputMessage().toString(), ex.getMessage());
+		
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<Object> handle(MethodArgumentTypeMismatchException ex) {
+	
+		ErroDeFormularioDto erro = new ErroDeFormularioDto(ex.getValue().toString(), ex.getMessage());
+		
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
 	/*
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)

@@ -1,6 +1,8 @@
 package com.controlefinanceiro.controller;
 
 import java.net.URI;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,19 +52,30 @@ public class ReceitaController {
 	}
 
 	@GetMapping
-	public Page<ReceitaDto> listaTodos(Integer page, Integer pageSize) {
+	public Page<ReceitaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
 
-		if(page !=null && pageSize != null) {
+		if( (page !=null && pageSize != null) && descricao != null) {
 			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Receita> despesas = receitaRepository.findAll(paging);
-			Page<ReceitaDto> despesasDto = despesas.map(ReceitaDto::new);
-			return despesasDto;	
+			Page<Receita> receitas = receitaRepository.findByDescricaoContainingIgnoreCase(descricao, paging);
+			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
+			return receitasDto;	
 		}
-		else {
+		else if ( (page !=null && pageSize != null) && descricao == null) {
+			Pageable paging = PageRequest.of(page,pageSize);
+			Page<Receita> receitas = receitaRepository.findAll(paging);
+			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
+			return receitasDto;	
+		}
+		else if ( (page == null && pageSize == null) && descricao != null) {
+			List<Receita> receitas = receitaRepository.findByDescricaoContainingIgnoreCase(descricao);
+			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
+			return new PageImpl<ReceitaDto>(receitasDto);
+			
+		}else {
 			List<Receita> receitas = receitaRepository.findAll();
 			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
-			return new PageImpl<ReceitaDto>(receitasDto);	
-		}
+			return new PageImpl<ReceitaDto>(receitasDto);
+		}		
 	}
 	
 	@GetMapping("/{id}")
@@ -74,6 +87,22 @@ public class ReceitaController {
 		}else {
 			return ResponseEntity.notFound().build();
 		}	
+	}
+	
+	@GetMapping("/{ano}/{mes}")
+	public Page<ReceitaDto> listaAnoMes(@PathVariable int ano, @PathVariable int mes) {
+
+		if(ano > 0 && mes > 0 && mes <= 12) {
+			YearMonth anoMes = YearMonth.of(ano, mes);
+	
+			List<Receita> receitas = receitaRepository.findByData(anoMes);
+			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
+			return new PageImpl<ReceitaDto>(receitasDto);
+		}else {
+			List<ReceitaDto> receitasDto = new ArrayList<ReceitaDto>();
+			return new PageImpl<ReceitaDto>(receitasDto);
+		}
+	
 	}
 	
 	@PutMapping("/{id}")

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.controlefinanceiro.modelo.Receita;
-import com.controlefinanceiro.modelo.enums.TipoReceita;
+import com.controlefinanceiro.modelo.enums.Categoria;
 
 public class ReceitaForm {
 	
@@ -25,14 +25,14 @@ public class ReceitaForm {
 	
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private TipoReceita tipoReceita;
+	private Categoria categoria = Categoria.Outras;
 		
 	public ReceitaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data, @NotNull TipoReceita tipoReceita ) {
+			@NotNull YearMonth data, @NotNull Categoria categoria ) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tipoReceita = tipoReceita ;
+		this.categoria = categoria;
 	}
 
 	public String getDescricao() {
@@ -58,16 +58,16 @@ public class ReceitaForm {
 	public void setData(YearMonth data) {
 		this.data = data;
 	}
-		
-	public TipoReceita getTipoReceita() {
-		return tipoReceita;
+	
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoReceita(TipoReceita tipoReceita) {
-		this.tipoReceita = tipoReceita;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public Receita converter() {
-		return new Receita (getDescricao(),getValor(),getData(),getTipoReceita());
+		return new Receita (getDescricao(),getValor(),getData(),getCategoria());
 	}
 }

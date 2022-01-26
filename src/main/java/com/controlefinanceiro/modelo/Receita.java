@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.controlefinanceiro.modelo.enums.TipoReceita;
+import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.utilidades.YearMonthDateAttributeConverter;
 
 @Entity
@@ -35,27 +35,18 @@ public class Receita {
 	
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private TipoReceita tipoReceita;
+	private Categoria categoria = Categoria.Outras;
 
-	public Receita(Long id, @NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
-			YearMonth data, @NotNull TipoReceita tiporeceita) {
-		this.id = id;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.data = data;
-		this.tipoReceita = tiporeceita;
-	}
-
-	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
-			YearMonth data, @NotNull TipoReceita tiporeceita) {
-		this.descricao = descricao;
-		this.valor = valor;
-		this.data = data;
-		this.tipoReceita = tiporeceita;
-	}
-	
 	public Receita() {}
 	
+	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
+			YearMonth data, @NotNull Categoria categoria) {
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.categoria = categoria;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -88,12 +79,12 @@ public class Receita {
 		this.data = data;
 	}
 
-	public TipoReceita getTiporeceita() {
-		return tipoReceita;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoReceita(TipoReceita tiporeceita) {
-		this.tipoReceita = tiporeceita;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override

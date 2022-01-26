@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.controlefinanceiro.modelo.Receita;
-import com.controlefinanceiro.modelo.enums.TipoReceita;
+import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.repository.ReceitaRepository;
 
 public class AtualizacaoReceitaForm {
@@ -21,7 +21,7 @@ public class AtualizacaoReceitaForm {
 	private YearMonth data;
 	
 	@NotNull
-	private TipoReceita tipoReceita;
+	private Categoria categoria;
 		
 	public String getDescricao() {
 		return descricao;
@@ -37,7 +37,7 @@ public class AtualizacaoReceitaForm {
 
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
+	}			
 
 	public YearMonth getData() {
 		return data;
@@ -47,18 +47,18 @@ public class AtualizacaoReceitaForm {
 		this.data = data;
 	}
 
-	public TipoReceita getTipoReceita() {
-		return tipoReceita;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoReceita(TipoReceita tipoReceita) {
-		this.tipoReceita = tipoReceita;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public Receita atualizar(Long id, ReceitaRepository receitaRepository) {
 		Receita receita = receitaRepository.getById(id);
 		receita.setDescricao(this.getDescricao());
-		receita.setTipoReceita(this.getTipoReceita());
+		receita.setCategoria(this.getCategoria());
 		receita.setValor(this.getValor());
 		receita.setData(this.getData());
 		return receita;

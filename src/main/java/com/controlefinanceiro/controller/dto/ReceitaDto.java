@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.controlefinanceiro.modelo.Receita;
-import com.controlefinanceiro.modelo.enums.TipoReceita;
+import com.controlefinanceiro.modelo.enums.Categoria;
 
 public class ReceitaDto {
 
 	private String descricao;
 	private double valor;
 	private YearMonth data;
-	private TipoReceita tipoReceita;
+	private Categoria categoria;
 	
 	public ReceitaDto(Receita receita) {
 		this.descricao = receita.getDescricao();
 		this.valor = receita.getValor();
 		this.data = receita.getData();
-		this.tipoReceita= receita.getTiporeceita();
+		this.categoria = receita.getCategoria();
 	}
 	
 	public String getDescricao() {
@@ -44,15 +44,15 @@ public class ReceitaDto {
 	public void setData(YearMonth data) {
 		this.data = data;
 	}
-	
-	public TipoReceita getTipoReceita() {
-		return tipoReceita;
+		
+	public Categoria getCategoria() {
+		return categoria;
 	}
-	
-	public void setTipoReceita(TipoReceita tipoReceita) {
-		this.tipoReceita = tipoReceita;
-	}	
-	
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public static List<ReceitaDto> converter(List<Receita> receitas) {
 		return receitas.stream().map(ReceitaDto::new).collect(Collectors.toList());
 	}

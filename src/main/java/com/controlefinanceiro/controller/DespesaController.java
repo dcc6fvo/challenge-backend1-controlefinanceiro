@@ -1,6 +1,8 @@
 package com.controlefinanceiro.controller;
 
 import java.net.URI;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,12 +28,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.controlefinanceiro.controller.dto.DespesaDetalhesDto;
 import com.controlefinanceiro.controller.dto.DespesaDto;
-
 import com.controlefinanceiro.controller.form.AtualizacaoDespesaForm;
 import com.controlefinanceiro.controller.form.DespesaForm;
 
 import com.controlefinanceiro.modelo.Despesa;
-
 import com.controlefinanceiro.repository.DespesaRepository;
 
 @RestController
@@ -53,18 +53,28 @@ public class DespesaController {
 	}
 
 	@GetMapping
-	public Page<DespesaDto> listaTodos(Integer page, Integer pageSize) {
+	public Page<DespesaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
 
-		if(page !=null && pageSize != null) {
+		if( (page !=null && pageSize != null) && descricao != null) {
+			Pageable paging = PageRequest.of(page,pageSize);
+			Page<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(paging, descricao);
+			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
+			return despesasDto;	
+		}
+		else if ( (page !=null && pageSize != null) && descricao == null) {
 			Pageable paging = PageRequest.of(page,pageSize);
 			Page<Despesa> despesas = despesaRepository.findAll(paging);
 			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
 			return despesasDto;	
 		}
-		else {
+		else if ( (page == null && pageSize == null) && descricao != null) {
+			List<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(descricao);
+			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
+			return new PageImpl<DespesaDto>(despesasDto);
+		}else {
 			List<Despesa> despesas = despesaRepository.findAll();
 			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
-			return new PageImpl<DespesaDto>(despesasDto);	
+			return new PageImpl<DespesaDto>(despesasDto);
 		}
 	}
 	
@@ -77,6 +87,22 @@ public class DespesaController {
 		}else {
 			return ResponseEntity.notFound().build();
 		}	
+	}
+	
+	@GetMapping("/{ano}/{mes}")
+	public Page<DespesaDto> listaAnoMes(@PathVariable int ano, @PathVariable int mes) {
+
+		if(ano > 0 && mes > 0 && mes <= 12) {
+			YearMonth anoMes = YearMonth.of(ano, mes);
+	
+			List<Despesa> despesas = despesaRepository.findByData(anoMes);
+			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
+			return new PageImpl<DespesaDto>(despesasDto);
+		}else {
+			List<DespesaDto> despesasDto = new ArrayList<DespesaDto>();
+			return new PageImpl<DespesaDto>(despesasDto);
+		}
+	
 	}
 	
 	@PutMapping("/{id}")

@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.controlefinanceiro.modelo.Despesa;
-import com.controlefinanceiro.modelo.enums.TipoDespesa;
+import com.controlefinanceiro.modelo.enums.Categoria;
 
 public class DespesaDetalhesDto {
 
 	private String descricao;
 	private double valor;
 	private YearMonth data;
-	private TipoDespesa tipoDespesa;
+	private Categoria categoria;
 	
 	public DespesaDetalhesDto(Despesa despesa) {
 		this.descricao = despesa.getDescricao();
 		this.valor = despesa.getValor();
 		this.data = despesa.getData();
-		this.tipoDespesa = despesa.getTipoDespesa();
+		this.categoria = despesa.getCategoria();
 	}
 	
 	public String getDescricao() {
@@ -45,14 +45,14 @@ public class DespesaDetalhesDto {
 		this.data = data;
 	}
 	
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
+	public Categoria getCategoria() {
+		return categoria;
 	}
-	
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
-	}	
-	
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public static List<DespesaDetalhesDto> converter(List<Despesa> despesas) {
 		return despesas.stream().map(DespesaDetalhesDto::new).collect(Collectors.toList());
 	}

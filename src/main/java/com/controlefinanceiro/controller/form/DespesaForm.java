@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.controlefinanceiro.modelo.Despesa;
-import com.controlefinanceiro.modelo.enums.TipoDespesa;
+import com.controlefinanceiro.modelo.enums.Categoria;
 
 public class DespesaForm {
 	
@@ -24,15 +24,23 @@ public class DespesaForm {
 	private YearMonth data;
 	
 	@Enumerated(EnumType.STRING)
-	@NotNull
-	private TipoDespesa tipoDespesa;
-		
+	private Categoria categoria;
+	
+	public DespesaForm() {	}
+	
 	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data, @NotNull TipoDespesa tipoDespesa) {
+			@NotNull YearMonth data) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.tipoDespesa = tipoDespesa;
+	}
+	
+	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
+			@NotNull YearMonth data, Categoria categoria) {
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.categoria = categoria;
 	}
 
 	public String getDescricao() {
@@ -59,15 +67,19 @@ public class DespesaForm {
 		this.data = data;
 	}
 
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public Despesa converter() {
-		return new Despesa (getDescricao(),getValor(),getData(),getTipoDespesa());
+		
+		if (getCategoria() != null)
+			return new Despesa (getDescricao(),getValor(),getData(),getCategoria());
+		else
+			return new Despesa (getDescricao(),getValor(),getData());
 	}
 }

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.controlefinanceiro.modelo.Despesa;
-import com.controlefinanceiro.modelo.enums.TipoDespesa;
+import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.repository.DespesaRepository;
 
 
@@ -21,8 +21,7 @@ public class AtualizacaoDespesaForm {
 	@NotNull
 	private YearMonth data;
 	
-	@NotNull
-	private TipoDespesa tipoDespesa;
+	private Categoria categoria;
 		
 	public String getDescricao() {
 		return descricao;
@@ -48,21 +47,24 @@ public class AtualizacaoDespesaForm {
 		this.data = data;
 	}
 
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public Despesa atualizar(Long id, DespesaRepository despesaRepository) {
 		Despesa despesa = despesaRepository.getById(id);
 		
 		despesa.setDescricao(this.getDescricao());
-		despesa.setTipoDespesa(this.getTipoDespesa());
 		despesa.setValor(this.getValor());
 		despesa.setData(this.getData());
+		
+		if (this.getCategoria() != null)
+			despesa.setCategoria(this.getCategoria());
+			
 		return despesa;
 	}
 
