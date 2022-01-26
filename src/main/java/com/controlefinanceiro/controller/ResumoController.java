@@ -60,12 +60,12 @@ public class ResumoController {
 			
 			List<DespesaCategoriaAnoMesDto> listaDespesasPorCategoria = despesaRepository.findSumDespesaCategoria(anoMes);
 		
-			if(listaDespesasPorCategoria != null && listaDespesasPorCategoria.size() > 0)
+			if(listaDespesasPorCategoria != null)
 				return ResponseEntity.ok(new ResumoAnoMesDto(anoMes,totalDespesas, totalReceitas, listaDespesasPorCategoria));
 			else
 				return ResponseEntity.ok(new ResumoAnoMesDto(anoMes,totalDespesas, totalReceitas, new ArrayList<DespesaCategoriaAnoMesDto>()));
-			
-		}else {
+
+			}else {
 			return ResponseEntity.notFound().build();
 		}
 	}
