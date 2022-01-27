@@ -45,8 +45,8 @@ public class ErroDeValidacaoHandler {
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Object> handle(HttpMessageNotReadableException ex) {
-	
-		ErroDeFormularioDto erro = new ErroDeFormularioDto(ex.getHttpInputMessage().toString(), ex.getMessage());
+			
+		Erro erro = new Erro(ex.getMessage());
 		
 		return ResponseEntity.internalServerError().body(erro);
 	}

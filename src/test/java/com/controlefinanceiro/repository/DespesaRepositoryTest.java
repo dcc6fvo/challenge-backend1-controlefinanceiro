@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import com.controlefinanceiro.BaseDev;
+import com.controlefinanceiro.BaseTest;
 import com.controlefinanceiro.controller.dto.DespesaCategoriaAnoMesDto;
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
 
-public class DespesaRepositoryTestH2 extends BaseDev{
+public class DespesaRepositoryTest extends BaseTest{
 
 	@Autowired
 	private DespesaRepository despesaRepository;

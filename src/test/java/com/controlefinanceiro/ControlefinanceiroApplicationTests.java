@@ -23,9 +23,4 @@ class ControlefinanceiroApplicationTests {
 		assertThat(despesaController).isNotNull();
 		assertThat(receitaController).isNotNull();
 	}
-	
-	
-	
-	
-
 }
