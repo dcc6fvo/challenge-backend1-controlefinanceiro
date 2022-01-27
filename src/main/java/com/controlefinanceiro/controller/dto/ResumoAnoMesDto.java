@@ -31,7 +31,7 @@ public class ResumoAnoMesDto {
 		if(valorTotalReceitas != null)
 			this.valorTotalReceitas = valorTotalReceitas;
 		this.saldo = this.valorTotalReceitas - this.valorTotalDespesas;
-		if(despesaPorCategoria != null || despesaPorCategoria.size() > 0)
+		if(despesaPorCategoria != null)
 			this.despesaPorCategoria = despesaPorCategoria;
 	}
 

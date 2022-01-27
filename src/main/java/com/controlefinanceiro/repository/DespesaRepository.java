@@ -14,13 +14,11 @@ import com.controlefinanceiro.modelo.enums.Categoria;
 
 public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 
-	List<Despesa> findByDescricao(String descricao);
+	List<Despesa> findByDescricaoContainingIgnoreCase(String descricao);
 	
 	List<Despesa> findAll();
 	
 	Page<Despesa> findByDescricaoContainingIgnoreCase(Pageable paging, String descricao);
-	
-	List<Despesa> findByDescricaoContainingIgnoreCase(String descricao);
 	
 	Page<Despesa> findByData(YearMonth data, Pageable paging);
 	

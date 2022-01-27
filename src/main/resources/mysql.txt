@@ -1,0 +1,5 @@
+CREATE DATABASE cf;
+CREATE USER 'controlefinanceiro'@'localhost' IDENTIFIED BY 'controle123';
+GRANT ALL PRIVILEGES ON cf.* TO 'controlefinanceiro'@'localhost';
+
+

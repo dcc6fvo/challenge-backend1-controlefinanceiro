@@ -1,0 +1,3 @@
+VM arguments:
+
+-Duser.timezone=GMT -Dspring.profiles.active=test

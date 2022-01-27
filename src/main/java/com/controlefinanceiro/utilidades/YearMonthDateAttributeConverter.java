@@ -1,6 +1,8 @@
 package com.controlefinanceiro.utilidades;
 
 import java.time.Instant;
+//import java.time.ZoneId;
+//import java.time.Instant;
 import java.time.YearMonth;
 import java.time.ZoneId;
 
@@ -24,12 +26,14 @@ implements AttributeConverter<YearMonth, java.sql.Date> {
 	public YearMonth convertToEntityAttribute(
 			java.sql.Date dbData) {
 		if (dbData != null) {
+			
 			return YearMonth.from(
 					Instant
 					.ofEpochMilli(dbData.getTime())
 					.atZone(ZoneId.systemDefault())
 					.toLocalDate()
 					);
+			
 		}
 		return null;
 	}
