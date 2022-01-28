@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.controlefinanceiro.controller.dto.DespesaDetalhesDto;
-import com.controlefinanceiro.controller.dto.DespesaDto;
-import com.controlefinanceiro.controller.form.AtualizacaoDespesaForm;
-import com.controlefinanceiro.controller.form.DespesaForm;
-
+import com.controlefinanceiro.dto.DespesaDetalhesDto;
+import com.controlefinanceiro.dto.DespesaDto;
+import com.controlefinanceiro.form.AtualizacaoDespesaForm;
+import com.controlefinanceiro.form.DespesaForm;
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.repository.DespesaRepository;
+import com.controlefinanceiro.service.DespesaService;
 
 @RestController
 @RequestMapping("/despesas")
@@ -41,41 +41,27 @@ public class DespesaController {
 
 	@Autowired
 	private DespesaRepository despesaRepository;
+	
+	@Autowired
+	private DespesaService despesaService;
 
 	@PostMapping
 	@Transactional
 	public ResponseEntity<DespesaDto> cadastrar(@RequestBody @Valid DespesaForm form, UriComponentsBuilder uriBuilder) {
-		Despesa despesa = form.converter();
+		
+		/*Despesa despesa = form.converter();
 		despesaRepository.save(despesa);
 
 		URI uri = uriBuilder.path("/despesas/{id}").buildAndExpand(despesa.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DespesaDto(despesa));
+		*/
+		
+		return despesaService.cadastrar(form, uriBuilder);
 	}
 
 	@GetMapping
 	public Page<DespesaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
-
-		if( (page !=null && pageSize != null) && descricao != null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(paging, descricao);
-			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
-			return despesasDto;	
-		}
-		else if ( (page !=null && pageSize != null) && descricao == null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Despesa> despesas = despesaRepository.findAll(paging);
-			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
-			return despesasDto;	
-		}
-		else if ( (page == null && pageSize == null) && descricao != null) {
-			List<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(descricao);
-			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
-			return new PageImpl<DespesaDto>(despesasDto);
-		}else {
-			List<Despesa> despesas = despesaRepository.findAll();
-			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
-			return new PageImpl<DespesaDto>(despesasDto);
-		}
+		return despesaService.listar(page, pageSize, descricao);
 	}
 	
 	@GetMapping("/{id}")

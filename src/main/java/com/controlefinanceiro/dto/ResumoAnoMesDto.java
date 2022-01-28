@@ -1,4 +1,4 @@
-package com.controlefinanceiro.controller.dto;
+package com.controlefinanceiro.dto;
 
 import java.time.YearMonth;
 import java.util.ArrayList;

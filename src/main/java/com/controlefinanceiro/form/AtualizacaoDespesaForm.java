@@ -1,4 +1,4 @@
-package com.controlefinanceiro.controller.form;
+package com.controlefinanceiro.form;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

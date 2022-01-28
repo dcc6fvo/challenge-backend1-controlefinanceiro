@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.controlefinanceiro.controller.dto.ReceitaDetalhesDto;
-import com.controlefinanceiro.controller.dto.ReceitaDto;
-import com.controlefinanceiro.controller.form.AtualizacaoReceitaForm;
-import com.controlefinanceiro.controller.form.ReceitaForm;
+import com.controlefinanceiro.dto.ReceitaDetalhesDto;
+import com.controlefinanceiro.dto.ReceitaDto;
+import com.controlefinanceiro.form.AtualizacaoReceitaForm;
+import com.controlefinanceiro.form.ReceitaForm;
 import com.controlefinanceiro.modelo.Receita;
 import com.controlefinanceiro.repository.ReceitaRepository;
 

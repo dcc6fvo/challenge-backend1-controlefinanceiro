@@ -1,24 +1,34 @@
-package com.controlefinanceiro.controller.dto;
+package com.controlefinanceiro.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.controlefinanceiro.modelo.Receita;
+import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
 
-public class ReceitaDto {
+public class DespesaDto {
 
 	private String descricao;
 	private BigDecimal valor;
 	private LocalDate data;
 	private Categoria categoria;
 	
-	public ReceitaDto(Receita receita) {
-		this.descricao = receita.getDescricao();
-		this.valor = receita.getValor();
-		this.data = receita.getData();
+	public DespesaDto() {}
+	
+	public DespesaDto(Despesa despesa) {
+		this.descricao = despesa.getDescricao();
+		this.valor = despesa.getValor();
+		this.data = despesa.getData();
+		this.categoria = despesa.getCategoria();
+	}
+
+	public DespesaDto(String descricao, BigDecimal valor, LocalDate data, Categoria categoria) {
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.categoria = categoria;
 	}
 	
 	public String getDescricao() {
@@ -53,7 +63,7 @@ public class ReceitaDto {
 		this.categoria = categoria;
 	}
 
-	public static List<ReceitaDto> converter(List<Receita> receitas) {
-		return receitas.stream().map(ReceitaDto::new).collect(Collectors.toList());
+	public static List<DespesaDto> converter(List<Despesa> despesas) {
+		return despesas.stream().map(DespesaDto::new).collect(Collectors.toList());
 	}
 }

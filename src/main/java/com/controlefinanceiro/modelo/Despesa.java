@@ -19,7 +19,7 @@ public class Despesa extends Conta {
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
-	private Categoria categoria = Categoria.Outras;
+	private Categoria categoria = Categoria.OUTRAS;
 	
 	public Despesa() { }
 	

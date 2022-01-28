@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import com.controlefinanceiro.BaseTest;
-import com.controlefinanceiro.controller.dto.DespesaCategoriaAnoMesDto;
+import com.controlefinanceiro.dto.DespesaCategoriaAnoMesDto;
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
 
@@ -77,7 +77,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	void deveriaRetornarListaDeDespesasAoBuscarPelaDataECategoria() {
 		
 		YearMonth anoMes = YearMonth.of(2022, 1);
-		Categoria categoria = Categoria.Lazer;
+		Categoria categoria = Categoria.LAZER;
 		
 		List<Despesa> despesas = despesaRepository.findByDataAndCategoria(anoMes, categoria);
 		

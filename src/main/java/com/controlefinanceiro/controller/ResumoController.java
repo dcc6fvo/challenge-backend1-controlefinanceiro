@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.controlefinanceiro.controller.dto.DespesaCategoriaAnoMesDto;
-import com.controlefinanceiro.controller.dto.ResumoAnoMesDto;
+import com.controlefinanceiro.dto.DespesaCategoriaAnoMesDto;
+import com.controlefinanceiro.dto.ResumoAnoMesDto;
 import com.controlefinanceiro.repository.DespesaRepository;
 import com.controlefinanceiro.repository.ReceitaRepository;
 

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.controlefinanceiro.controller.dto.DespesaCategoriaAnoMesDto;
+import com.controlefinanceiro.dto.DespesaCategoriaAnoMesDto;
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
 
@@ -29,7 +29,7 @@ public interface DespesaRepository extends JpaRepository<Despesa, Long>{
 	@Query("SELECT SUM(d.valor) FROM Despesa d where d.data = ?1")
 	Double findSumDespesa(YearMonth data);
 	
-	@Query("SELECT new com.controlefinanceiro.controller.dto.DespesaCategoriaAnoMesDto (d.categoria, SUM(d.valor)) FROM Despesa d where d.data = ?1 GROUP BY d.categoria")
+	@Query("SELECT new com.controlefinanceiro.dto.DespesaCategoriaAnoMesDto (d.categoria, SUM(d.valor)) FROM Despesa d where d.data = ?1 GROUP BY d.categoria")
 	List<DespesaCategoriaAnoMesDto> findSumDespesaCategoria(YearMonth data);
 	
 }
