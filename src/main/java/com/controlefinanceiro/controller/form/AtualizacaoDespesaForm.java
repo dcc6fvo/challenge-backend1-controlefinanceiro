@@ -1,6 +1,7 @@
 package com.controlefinanceiro.controller.form;
 
-import java.time.YearMonth;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,10 +17,10 @@ public class AtualizacaoDespesaForm {
 	private String descricao;
 
 	@NotNull
-	private double valor;
+	private BigDecimal valor;
 
 	@NotNull
-	private YearMonth data;
+	private LocalDate data;
 	
 	private Categoria categoria;
 		
@@ -27,32 +28,16 @@ public class AtualizacaoDespesaForm {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	public YearMonth getData() {
+	public LocalDate getData() {
 		return data;
-	}
-
-	public void setData(YearMonth data) {
-		this.data = data;
 	}
 
 	public Categoria getCategoria() {
 		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public Despesa atualizar(Long id, DespesaRepository despesaRepository) {

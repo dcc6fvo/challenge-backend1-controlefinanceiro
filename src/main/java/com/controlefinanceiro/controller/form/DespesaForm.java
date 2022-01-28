@@ -1,6 +1,7 @@
 package com.controlefinanceiro.controller.form;
 
-import java.time.YearMonth;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,25 +19,25 @@ public class DespesaForm {
 	private String descricao;
 	
 	@NotNull
-	private double valor;
+	private BigDecimal valor;
 
 	@NotNull
-	private YearMonth data;
+	private LocalDate data;
 	
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
 	public DespesaForm() {	}
 	
-	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data) {
+	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull BigDecimal valor,
+			@NotNull LocalDate data) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
 	}
 	
-	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data, Categoria categoria) {
+	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull BigDecimal valor,
+			@NotNull LocalDate data, Categoria categoria) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
@@ -47,32 +48,16 @@ public class DespesaForm {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	public YearMonth getData() {
+	public LocalDate getData() {
 		return data;
-	}
-
-	public void setData(YearMonth data) {
-		this.data = data;
 	}
 
 	public Categoria getCategoria() {
 		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public Despesa converter() {

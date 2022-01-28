@@ -1,9 +1,9 @@
 
-INSERT INTO receita (descricao,valor,data,categoria) values ('Salario',7800.00,'2021-12-01', 'Outras');
-INSERT INTO receita (descricao,valor,data,categoria) values ('Salario',7300.00,'2022-01-01', 'Outras');
-INSERT INTO receita (descricao,valor,data,categoria) values ('Salario Extra',450.00,'2022-01-01', 'Outras');
-INSERT INTO receita (descricao,valor,data,categoria) values ('Vendas ML',500.00,'2022-01-01', 'Outras');
-INSERT INTO receita (descricao,valor,data,categoria) values ('Salario',7800.00,'2022-02-01', 'Outras');
+INSERT INTO receita (descricao,valor,data) values ('Salario',7800.00,'2021-12-01');
+INSERT INTO receita (descricao,valor,data) values ('Salario',7300.00,'2022-01-01');
+INSERT INTO receita (descricao,valor,data) values ('Salario Extra',450.00,'2022-01-01');
+INSERT INTO receita (descricao,valor,data) values ('Vendas ML',500.00,'2022-01-01');
+INSERT INTO receita (descricao,valor,data) values ('Salario',7800.00,'2022-02-01');
 
 INSERT INTO despesa (descricao,valor,data,categoria) values ('Gas',180.00,'2022-01-01', 'Outras');
 INSERT INTO despesa (descricao,valor,data,categoria) values ('Agua',90.00,'2022-01-01', 'Outras');

@@ -1,12 +1,12 @@
 package com.controlefinanceiro.controller.form;
 
-import java.time.YearMonth;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.controlefinanceiro.modelo.Receita;
-import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.repository.ReceitaRepository;
 
 public class AtualizacaoReceitaForm {
@@ -15,14 +15,11 @@ public class AtualizacaoReceitaForm {
 	private String descricao;
 
 	@NotNull
-	private double valor;
+	private BigDecimal valor;
 
 	@NotNull
-	private YearMonth data;
-	
-	@NotNull
-	private Categoria categoria;
-		
+	private LocalDate data;
+			
 	public String getDescricao() {
 		return descricao;
 	}
@@ -30,39 +27,29 @@ public class AtualizacaoReceitaForm {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public double getValor() {
+	
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
-	}			
+	}
 
-	public YearMonth getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(YearMonth data) {
+	public void setData(LocalDate data) {
 		this.data = data;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public Receita atualizar(Long id, ReceitaRepository receitaRepository) {
 		Receita receita = receitaRepository.getById(id);
 		receita.setDescricao(this.getDescricao());
-		receita.setCategoria(this.getCategoria());
 		receita.setValor(this.getValor());
 		receita.setData(this.getData());
 		return receita;
 	}
-
 	
 }
