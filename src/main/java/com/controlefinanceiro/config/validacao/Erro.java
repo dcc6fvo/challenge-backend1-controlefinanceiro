@@ -1,6 +1,5 @@
 package com.controlefinanceiro.config.validacao;
 
-
 public class Erro {
 	
 	private String erro;
@@ -11,5 +10,9 @@ public class Erro {
 
 	public String getErro() {
 		return erro;
+	}
+
+	public void setErro(String erro) {
+		this.erro = erro;
 	}
 }

@@ -55,7 +55,7 @@ public class ErroDeValidacaoHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<Object> handle(MethodArgumentTypeMismatchException ex) {
 	
-		ErroDeFormularioDto erro = new ErroDeFormularioDto(ex.getValue().toString(), ex.getMessage());
+		Erro erro = new Erro(ex.getMessage());
 		
 		return ResponseEntity.internalServerError().body(erro);
 	}

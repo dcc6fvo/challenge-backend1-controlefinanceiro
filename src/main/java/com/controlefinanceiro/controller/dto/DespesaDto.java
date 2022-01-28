@@ -20,6 +20,13 @@ public class DespesaDto {
 		this.data = despesa.getData();
 		this.categoria = despesa.getCategoria();
 	}
+
+	public DespesaDto(String descricao, double valor, YearMonth data, Categoria categoria) {
+		this.descricao = descricao;
+		this.valor = valor;
+		this.data = data;
+		this.categoria = categoria;
+	}
 	
 	public String getDescricao() {
 		return descricao;

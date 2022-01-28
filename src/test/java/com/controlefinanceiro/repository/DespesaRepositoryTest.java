@@ -49,7 +49,7 @@ public class DespesaRepositoryTest extends BaseTest{
 		Assert.assertNotNull(despesas);		
 		Assert.assertTrue(despesas.getTotalElements() > 0);
 	}
-	
+		
 	@Test
 	void deveriaRetornarPaginaComDespesasAoBuscarPelaData() {
 		

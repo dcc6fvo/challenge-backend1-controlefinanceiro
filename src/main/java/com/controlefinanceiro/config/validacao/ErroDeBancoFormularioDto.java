@@ -1,21 +1,19 @@
 package com.controlefinanceiro.config.validacao;
 
-
-public class ErroDeBancoFormularioDto {
+public class ErroDeBancoFormularioDto extends Erro {
 	
 	private String sql;
-	private String erro;
 	
 	public ErroDeBancoFormularioDto(String sql, String erro) {
+		super(erro);
 		this.sql = sql;
-		this.erro = erro;
 	}
 
 	public String getSql() {
 		return sql;
 	}
 
-	public String getErro() {
-		return erro;
+	public void setSql(String sql) {
+		this.sql = sql;
 	}
 }
