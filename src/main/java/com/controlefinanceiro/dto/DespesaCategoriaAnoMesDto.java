@@ -1,28 +1,30 @@
-package com.controlefinanceiro.controller.dto;
+package com.controlefinanceiro.dto;
 
-import com.controlefinanceiro.modelo.Despesa;
+import java.math.BigDecimal;
+
+import com.controlefinanceiro.modelo.Conta;
 import com.controlefinanceiro.modelo.enums.Categoria;
 
 public class DespesaCategoriaAnoMesDto {
 
-	private double valor;
+	private BigDecimal valor;
 	private Categoria categoria;
 	
-	public DespesaCategoriaAnoMesDto(Categoria categoria, double valor) {
+	public DespesaCategoriaAnoMesDto(Categoria categoria, BigDecimal valor) {
 		this.valor = valor;
 		this.categoria = categoria;
 	}
 	
-	public DespesaCategoriaAnoMesDto(Despesa despesa) {	}
-		
-	public double getValor() {
+	public DespesaCategoriaAnoMesDto(Conta despesa) {	}
+					
+	public BigDecimal getValor() {
 		return valor;
 	}
-	
-	public void setValor(double valor) {
+
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-			
+
 	public Categoria getCategoria() {
 		return categoria;
 	}

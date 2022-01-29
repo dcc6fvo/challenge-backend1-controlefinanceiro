@@ -1,19 +1,10 @@
 package com.controlefinanceiro.controller;
 
-import java.net.URI;
-import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,105 +17,59 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.controlefinanceiro.controller.dto.ReceitaDetalhesDto;
-import com.controlefinanceiro.controller.dto.ReceitaDto;
-import com.controlefinanceiro.controller.form.AtualizacaoReceitaForm;
-import com.controlefinanceiro.controller.form.ReceitaForm;
-import com.controlefinanceiro.modelo.Receita;
-import com.controlefinanceiro.repository.ReceitaRepository;
+import com.controlefinanceiro.dto.ReceitaDetalhesDto;
+import com.controlefinanceiro.dto.ReceitaDto;
+import com.controlefinanceiro.form.AtualizacaoReceitaForm;
+import com.controlefinanceiro.form.ReceitaForm;
+import com.controlefinanceiro.service.ReceitaService;
 
 @RestController
 @RequestMapping("/receitas")
 @CrossOrigin("http://127.0.0.1")
 public class ReceitaController {
 
-	@Autowired
-	private ReceitaRepository receitaRepository;
 
+	@Autowired
+	private ReceitaService receitaService;
+
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<ReceitaDto> cadastrar(@RequestBody @Valid ReceitaForm form, UriComponentsBuilder uriBuilder) {
-		Receita receita = form.converter();
-		receitaRepository.save(receita);
-
-		URI uri = uriBuilder.path("/receitas/{id}").buildAndExpand(receita.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ReceitaDto(receita));
+		
+		return receitaService.cadastrar(form, uriBuilder);
 	}
 
 	@GetMapping
 	public Page<ReceitaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
 
-		if( (page !=null && pageSize != null) && descricao != null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Receita> receitas = receitaRepository.findByDescricaoContainingIgnoreCase(descricao, paging);
-			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
-			return receitasDto;	
-		}
-		else if ( (page !=null && pageSize != null) && descricao == null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Receita> receitas = receitaRepository.findAll(paging);
-			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
-			return receitasDto;	
-		}
-		else if ( (page == null && pageSize == null) && descricao != null) {
-			List<Receita> receitas = receitaRepository.findByDescricaoContainingIgnoreCase(descricao);
-			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
-			return new PageImpl<ReceitaDto>(receitasDto);
-			
-		}else {
-			List<Receita> receitas = receitaRepository.findAll();
-			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
-			return new PageImpl<ReceitaDto>(receitasDto);
-		}		
+		return receitaService.listaTodos(page, pageSize, descricao);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ReceitaDetalhesDto> listaDetalhado(@PathVariable Long id) {
 
-		Optional<Receita> receita = receitaRepository.findById(id);
-		if (receita.isPresent()) {
-			return ResponseEntity.ok(new ReceitaDetalhesDto(receita.get()));
-		}else {
-			return ResponseEntity.notFound().build();
-		}	
+		return receitaService.listaDetalhado(id);
 	}
 	
 	@GetMapping("/{ano}/{mes}")
 	public Page<ReceitaDto> listaAnoMes(@PathVariable int ano, @PathVariable int mes) {
 
-		if(ano > 0 && mes > 0 && mes <= 12) {
-			YearMonth anoMes = YearMonth.of(ano, mes);
-	
-			List<Receita> receitas = receitaRepository.findByData(anoMes);
-			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
-			return new PageImpl<ReceitaDto>(receitasDto);
-		}else {
-			List<ReceitaDto> receitasDto = new ArrayList<ReceitaDto>();
-			return new PageImpl<ReceitaDto>(receitasDto);
-		}
-	
+		return receitaService.listaAnoMes(ano, mes);
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<ReceitaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoReceitaForm form) {
-		Optional<Receita> optional = receitaRepository.findById(id);
-		if (optional.isPresent()) {
-			Receita receita = form.atualizar(id, receitaRepository);
-			return ResponseEntity.ok(new ReceitaDto(receita));
-		}
-		return ResponseEntity.notFound().build();
+
+		return receitaService.atualizar(id, form);
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<ReceitaDto> deletar(@PathVariable Long id) {
-		Optional<Receita> optional = receitaRepository.findById(id);
-		if (optional.isPresent()) {
-			receitaRepository.delete(optional.get());
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.notFound().build();
+		
+		return receitaService.deletar(id);
 	}
 		
 }

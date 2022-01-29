@@ -1,6 +1,7 @@
-package com.controlefinanceiro.controller.form;
+package com.controlefinanceiro.form;
 
-import java.time.YearMonth;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +12,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
+import com.controlefinanceiro.uteis.AnoMesDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class DespesaForm {
 	
@@ -18,25 +22,27 @@ public class DespesaForm {
 	private String descricao;
 	
 	@NotNull
-	private double valor;
+	private BigDecimal valor;
 
 	@NotNull
-	private YearMonth data;
+	@JsonDeserialize(using = AnoMesDeserializer.class)
+	@JsonFormat(pattern = "yyyy-MM")
+	private LocalDate data;
 	
 	@Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
 	public DespesaForm() {	}
 	
-	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data) {
+	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull BigDecimal valor,
+			@NotNull LocalDate data) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
 	}
 	
-	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull double valor,
-			@NotNull YearMonth data, Categoria categoria) {
+	public DespesaForm(@NotNull @NotEmpty @Length(min = 3) String descricao, @NotNull BigDecimal valor,
+			@NotNull LocalDate data, Categoria categoria) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
@@ -47,32 +53,16 @@ public class DespesaForm {
 		return descricao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	public YearMonth getData() {
+	public LocalDate getData() {
 		return data;
-	}
-
-	public void setData(YearMonth data) {
-		this.data = data;
 	}
 
 	public Categoria getCategoria() {
 		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
 	}
 
 	public Despesa converter() {

@@ -1,6 +1,6 @@
-package com.controlefinanceiro.controller.dto;
+package com.controlefinanceiro.dto;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class ResumoAnoMesDto {
 	    Valor total gasto no mês em cada uma das categorias
 	 */
 
-	private YearMonth anoMes;
+	private LocalDate anoMes;
 	private Double valorTotalDespesas = 0D;
 	private Double valorTotalReceitas = 0D;
 	private Double saldo;
@@ -23,7 +23,7 @@ public class ResumoAnoMesDto {
 
 	public ResumoAnoMesDto() { }
 
-	public ResumoAnoMesDto(YearMonth anoMes, Double valorTotalDespesas, Double valorTotalReceitas, List<DespesaCategoriaAnoMesDto> despesaPorCategoria) {
+	public ResumoAnoMesDto(LocalDate anoMes, Double valorTotalDespesas, Double valorTotalReceitas, List<DespesaCategoriaAnoMesDto> despesaPorCategoria) {
 	
 		this.anoMes = anoMes;
 		if(valorTotalDespesas != null)
@@ -35,11 +35,11 @@ public class ResumoAnoMesDto {
 			this.despesaPorCategoria = despesaPorCategoria;
 	}
 
-	public YearMonth getAnoMes() {
+	public LocalDate getAnoMes() {
 		return anoMes;
 	}
 
-	public void setAnoMes(YearMonth anoMes) {
+	public void setAnoMes(LocalDate anoMes) {
 		this.anoMes = anoMes;
 	}
 

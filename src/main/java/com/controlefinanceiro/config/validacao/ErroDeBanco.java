@@ -1,10 +1,10 @@
 package com.controlefinanceiro.config.validacao;
 
-public class ErroDeBancoFormularioDto extends Erro {
+public class ErroDeBanco extends Erro {
 	
 	private String sql;
 	
-	public ErroDeBancoFormularioDto(String sql, String erro) {
+	public ErroDeBanco(String sql, String erro) {
 		super(erro);
 		this.sql = sql;
 	}

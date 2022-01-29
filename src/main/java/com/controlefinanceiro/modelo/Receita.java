@@ -1,115 +1,21 @@
 package com.controlefinanceiro.modelo;
 
-import java.time.YearMonth;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.controlefinanceiro.modelo.enums.Categoria;
-import com.controlefinanceiro.utilidades.YearMonthDateAttributeConverter;
-
 @Entity
-public class Receita {
+public class Receita extends Conta{
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@NotBlank(message = "A descrição é obrigatória")
-	private String descricao;
-	
-	@NotNull
-	private double valor;
-	
-	@Column(name = "data",columnDefinition = "date")
-	@Convert(converter = YearMonthDateAttributeConverter.class)
-	@NotNull
-	private YearMonth data;
-	
-	@Enumerated(EnumType.STRING)
-	@NotNull
-	private Categoria categoria = Categoria.Outras;
-
 	public Receita() {}
 	
-	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull double valor,
-			YearMonth data, @NotNull Categoria categoria) {
+	public Receita(@NotBlank(message = "A descrição é obrigatória") String descricao, @NotNull BigDecimal valor,
+			LocalDate data) {
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
-		this.categoria = categoria;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}	
-
-	public YearMonth getData() {
-		return data;
-	}
-
-	public void setData(YearMonth data) {
-		this.data = data;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Receita other = (Receita) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 
 }

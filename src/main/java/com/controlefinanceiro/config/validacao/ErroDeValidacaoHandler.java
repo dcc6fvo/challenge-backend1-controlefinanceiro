@@ -7,18 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
 
 @RestControllerAdvice
 public class ErroDeValidacaoHandler {
@@ -77,9 +80,33 @@ public class ErroDeValidacaoHandler {
 	public ResponseEntity<Object> handle(JdbcSQLIntegrityConstraintViolationException ex, 
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		ErroDeBancoFormularioDto erro = new ErroDeBancoFormularioDto(ex.getSQL(), ex.getOriginalMessage());
+		ErroDeBanco erro = new ErroDeBanco(ex.getSQL(), ex.getOriginalMessage());
 		
 		return ResponseEntity.internalServerError().body(erro);
 	}
 
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<Object> handle(DataIntegrityViolationException ex, 
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		Erro erro = new Erro(ex.getMessage());
+		
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(java.time.DateTimeException.class)
+	public ResponseEntity<Object> handle(java.time.DateTimeException ex, 
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		Erro erro = new Erro(ex.getMessage());
+		
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
+	
+	
 }
