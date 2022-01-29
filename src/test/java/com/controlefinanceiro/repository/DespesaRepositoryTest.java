@@ -1,6 +1,6 @@
 package com.controlefinanceiro.repository;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Assert;
@@ -53,7 +53,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	@Test
 	void deveriaRetornarPaginaComDespesasAoBuscarPelaData() {
 		
-		YearMonth anoMes = YearMonth.of(2022, 1);
+		LocalDate anoMes = LocalDate.of(2022, 1, 1);
 		Pageable paging = PageRequest.of(0,10);
 		
 		Page<Despesa> despesas = despesaRepository.findByData(anoMes,paging);
@@ -65,7 +65,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	@Test
 	void deveriaRetornarListaDeDespesasAoBuscarPelaData() {
 		
-		YearMonth anoMes = YearMonth.of(2022, 1);
+		LocalDate anoMes = LocalDate.of(2022, 1, 1);
 		
 		List<Despesa> despesas = despesaRepository.findByData(anoMes);
 		
@@ -76,7 +76,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	@Test
 	void deveriaRetornarListaDeDespesasAoBuscarPelaDataECategoria() {
 		
-		YearMonth anoMes = YearMonth.of(2022, 1);
+		LocalDate anoMes = LocalDate.of(2022, 1, 1);
 		Categoria categoria = Categoria.LAZER;
 		
 		List<Despesa> despesas = despesaRepository.findByDataAndCategoria(anoMes, categoria);
@@ -88,7 +88,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	@Test
 	void deveriaRetornarValorTotalDeDespesasAoBuscarPelaData() {
 		
-		YearMonth anoMes = YearMonth.of(2022, 1);
+		LocalDate anoMes = LocalDate.of(2022, 1, 1);
 		
 		Double valorTotal = despesaRepository.findSumDespesa(anoMes);
 				
@@ -99,7 +99,7 @@ public class DespesaRepositoryTest extends BaseTest{
 	@Test
 	void deveriaRetornarListaDeDespesasCategorizadasAoBuscarPelaData() {
 		
-		YearMonth anoMes = YearMonth.of(2022, 1);
+		LocalDate anoMes = LocalDate.of(2022, 1, 1);
 		
 		List<DespesaCategoriaAnoMesDto> despesas = despesaRepository.findSumDespesaCategoria(anoMes);
 				

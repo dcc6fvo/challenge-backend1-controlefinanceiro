@@ -12,6 +12,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
+import com.controlefinanceiro.uteis.AnoMesDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class DespesaForm {
 	
@@ -22,6 +25,8 @@ public class DespesaForm {
 	private BigDecimal valor;
 
 	@NotNull
+	@JsonDeserialize(using = AnoMesDeserializer.class)
+	@JsonFormat(pattern = "yyyy-MM")
 	private LocalDate data;
 	
 	@Enumerated(EnumType.STRING)

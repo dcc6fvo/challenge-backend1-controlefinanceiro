@@ -80,7 +80,7 @@ public class ErroDeValidacaoHandler {
 	public ResponseEntity<Object> handle(JdbcSQLIntegrityConstraintViolationException ex, 
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		ErroDeBancoFormularioDto erro = new ErroDeBancoFormularioDto(ex.getSQL(), ex.getOriginalMessage());
+		ErroDeBanco erro = new ErroDeBanco(ex.getSQL(), ex.getOriginalMessage());
 		
 		return ResponseEntity.internalServerError().body(erro);
 	}
@@ -95,6 +95,18 @@ public class ErroDeValidacaoHandler {
 		
 		return ResponseEntity.internalServerError().body(erro);
 	}
+	
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(java.time.DateTimeException.class)
+	public ResponseEntity<Object> handle(java.time.DateTimeException ex, 
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		Erro erro = new Erro(ex.getMessage());
+		
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
 	
 	
 }

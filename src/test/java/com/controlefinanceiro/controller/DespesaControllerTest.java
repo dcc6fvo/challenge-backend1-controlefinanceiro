@@ -31,49 +31,39 @@ class DespesaControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private boolean habilitaLogSyso = false;
-
 	@Test
 	public void deveriaDevolver404AoDeletarDespesaInexistente() throws Exception {
 		URI uri = new URI("/despesas/9999");
-		
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.delete(uri)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(404))
-				.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(404))
+		.andReturn();
+
+
 	}
-	
+
 	@Test
 	public void deveriaDevolver200AoDeletarDespesa() throws Exception {
 		URI uri = new URI("/despesas/1");
-		
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.delete(uri)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(200))
-				.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(200))
+		.andReturn();
+
+
 	}
-	
-	
+
+
 	@Test
 	public void deveriaDevolver201CasoDespesaSemCategoriaDefinidaFoiCadastradaComSucesso() throws Exception {
 		URI uri = new URI("/despesas");
@@ -83,21 +73,15 @@ class DespesaControllerTest {
 				+ "                \"data\" : \"2022-01\""           
 				+ "                }";
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.post(uri)
-						.content(json)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(201))
-				.andReturn();
-
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver201CasoDespesaSemCategoriaDefinidaFoiCadastradaComSucesso");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}	
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(201))
+		.andReturn();
 
 	}
 
@@ -111,21 +95,16 @@ class DespesaControllerTest {
 				+ "                \"categoria\" : \"Lazer\""
 				+ "                }";
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.post(uri)
-						.content(json)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(201))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(201))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver201CasoDespesaComCategoriaFoiCadastradaComSucesso");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
@@ -138,21 +117,16 @@ class DespesaControllerTest {
 				+ "                \"categoria\" : \"Laser\""
 				+ "                }";
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.post(uri)
-						.content(json)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(500))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.post(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(500))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver500CasoForEnviadoDespesaComCategoriaInexistente");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
@@ -164,21 +138,17 @@ class DespesaControllerTest {
 		parameters.put("pageSize", Collections.singletonList("10"));
 		parameters.put("descricao", Collections.singletonList("joaquim"));
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.get(uri)
-						.params(parameters)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(200))
-				.andReturn();	
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.params(parameters)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(200))
+		.andReturn();	
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDescricaoComPaginacao");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
+
 	}
 
 	@Test
@@ -188,84 +158,64 @@ class DespesaControllerTest {
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.put("descricao", Collections.singletonList("futsal"));
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.get(uri)
-						.params(parameters)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(200))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.params(parameters)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(200))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDescricaoSemPaginacao");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
 	public void deveriaDevolver200AoBuscarPorId() throws Exception {
 		URI uri = new URI("/despesas/3");
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.get(uri)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(200))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(200))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorId");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
 	public void deveriaDevolver404AoBuscarPorIdInexistente() throws Exception {
 		URI uri = new URI("/despesas/9999");
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.get(uri)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(404))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(404))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver404AoBuscarPorIdInexistente");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
 	public void deveriaDevolver500AoBuscarPorIdInvalido() throws Exception {
 		URI uri = new URI("/despesas/cacaca");
 
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.get(uri)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(500))
-				.andReturn();
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.get(uri)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(500))
+		.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver500AoBuscarPorIdInexistente");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
-		@Test
+	@Test
 	public void deveriaDevolver200AoBuscarPorDespesasDeAnoEMesInexistente() throws Exception {
 		URI uri = new URI("/despesas/1990/01");
 
@@ -280,14 +230,7 @@ class DespesaControllerTest {
 
 		Assert.assertTrue(result.getResponse().getContentAsString().contains("\"totalElements\":0"));
 
-		if(habilitaLogSyso){	
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
-
-	
 
 	@Test
 	public void deveriaDevolver200AoBuscarPorDespesasDeAnoEMes() throws Exception {
@@ -304,12 +247,6 @@ class DespesaControllerTest {
 				.andReturn();
 
 		Assert.assertTrue(result.getResponse().getContentAsString().contains("\"totalElements\":3"));
-
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
 	}
 
 	@Test
@@ -322,24 +259,18 @@ class DespesaControllerTest {
 				+ "                \"data\" : \"2022-01\","
 				+ "                \"categoria\" : \"Outras\""
 				+ "                }";
-		
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.put(uri)
-						.content(json)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(200))
-				.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(200))
+		.andReturn();
 	}
-	
+
 	@Test
 	public void deveriaDevolver404AoAtualizarDespesaInexistente() throws Exception {
 		URI uri = new URI("/despesas/9999");
@@ -350,22 +281,17 @@ class DespesaControllerTest {
 				+ "                \"data\" : \"2022-01\","
 				+ "                \"categoria\" : \"Outras\""
 				+ "                }";
-		
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders
-						.put(uri)
-						.content(json)
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers
-						.status()
-						.is(404))
-				.andReturn();
 
-		if(habilitaLogSyso){
-			System.out.println("%%%%%%%%%%% deveriaDevolver200AoBuscarPorDespesasDeAnoEMes");
-			System.out.println(result.getResponse().getContentAsString());
-			System.out.println("%%%%%%%%%%%");
-		}
+		//MvcResult result = mockMvc
+		mockMvc.perform(MockMvcRequestBuilders
+				.put(uri)
+				.content(json)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers
+				.status()
+				.is(404))
+		.andReturn();
+
 	}
 
 }

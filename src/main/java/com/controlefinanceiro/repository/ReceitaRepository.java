@@ -1,6 +1,6 @@
 package com.controlefinanceiro.repository;
 
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -20,11 +20,11 @@ public interface ReceitaRepository extends JpaRepository<Receita, Long> {
 	
 	List<Receita> findByDescricaoContainingIgnoreCase(String descricao);
 	
-	Page<Receita> findByData(YearMonth data, Pageable paging);
+	Page<Receita> findByData(LocalDate data, Pageable paging);
 	
-	List<Receita> findByData(YearMonth data);
+	List<Receita> findByData(LocalDate data);
 	
 	@Query("SELECT SUM(r.valor) FROM Receita r where r.data = ?1 ")
-	double findSumReceita(YearMonth data);
+	double findSumReceita(LocalDate data);
 	
 }
