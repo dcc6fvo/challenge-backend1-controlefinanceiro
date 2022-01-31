@@ -1,9 +1,15 @@
 package com.controlefinanceiro.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -39,9 +46,11 @@ public class DespesaController {
 	}
 
 	@GetMapping
-	public Page<DespesaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
+	public Page<DespesaDto> listaTodos(@RequestParam(required = false) String descricao, 
+			@PageableDefault(sort="descricao", direction = Direction.ASC) Pageable paginacao) {	
+//		com PageableDefault caso o atributo sort não aparecer ele vai usar configuracao sort=descricao,asc
 		
-		return despesaService.listar(page, pageSize, descricao);
+		return despesaService.listar(descricao, paginacao);
 	}
 
 	@GetMapping("/{id}")

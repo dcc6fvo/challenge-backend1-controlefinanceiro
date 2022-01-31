@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,21 +33,20 @@ public class DespesaService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public Page<DespesaDto> listar(Integer page, Integer pageSize, String descricao){
+	public Page<DespesaDto> listar(String descricao, Pageable paginacao){
 		
-		if( (page !=null && pageSize != null) && descricao != null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Despesa> despesas = repository.findByDescricaoContainingIgnoreCase(paging, descricao);
+		if( (paginacao != null) && descricao != null) {
+
+			Page<Despesa> despesas = repository.findByDescricaoContainingIgnoreCase(paginacao, descricao);
 			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
 			return despesasDto;	
 		}
-		else if ( (page !=null && pageSize != null) && descricao == null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Despesa> despesas = repository.findAll(paging);
+		else if ( (paginacao != null) && descricao == null) {
+			Page<Despesa> despesas = repository.findAll(paginacao);
 			Page<DespesaDto> despesasDto = despesas.map(DespesaDto::new);
 			return despesasDto;	
 		}
-		else if ( (page == null && pageSize == null) && descricao != null) {
+		else if ( (paginacao == null) && descricao != null) {
 			List<Despesa> despesas = repository.findByDescricaoContainingIgnoreCase(descricao);
 			List<DespesaDto> despesasDto = DespesaDto.converter(despesas);
 			return new PageImpl<DespesaDto>(despesasDto);

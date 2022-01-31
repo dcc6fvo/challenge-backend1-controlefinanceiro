@@ -5,13 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,9 +27,6 @@ public class ReceitaService {
 	@Autowired
 	private ReceitaRepository repository;
 
-	@Autowired
-	private ModelMapper modelMapper;
-
 
 	public ResponseEntity<ReceitaDto> cadastrar(ReceitaForm form, UriComponentsBuilder uriBuilder) {
 
@@ -44,34 +38,18 @@ public class ReceitaService {
 
 	}
 
-	public Page<ReceitaDto> listaTodos(Integer page, Integer pageSize, String descricao) {
+	public Page<ReceitaDto> listaTodos(String descricao, Pageable paginacao) {
 
-		if( (page !=null && pageSize != null) && descricao != null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Receita> receitas = repository.findByDescricaoContainingIgnoreCase(descricao, paging);
+		if( descricao != null) {
+			Page<Receita> receitas = repository.findByDescricaoContainingIgnoreCase(descricao, paginacao);
 			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
 			return receitasDto;	
 		}
-		else if ( (page !=null && pageSize != null) && descricao == null) {
-			Pageable paging = PageRequest.of(page,pageSize);
-			Page<Receita> receitas = repository.findAll(paging);
+		else{
+			Page<Receita> receitas = repository.findAll(paginacao);
 			Page<ReceitaDto> receitasDto = receitas.map(ReceitaDto::new);
 			return receitasDto;	
 		}
-		else if ( (page == null && pageSize == null) && descricao != null) {
-			List<Receita> receitas = repository.findByDescricaoContainingIgnoreCase(descricao);
-			List<ReceitaDto> receitasDto = ReceitaDto.converter(receitas);
-			return new PageImpl<ReceitaDto>(receitasDto);
-
-		}else {
-			List<Receita> receitas = repository.findAll();
-			//List<DespesaDto> despesasDto = DespesaDto.converter(despesas);	
-			List<ReceitaDto> receitasDto = receitas.stream()
-					.map(c -> modelMapper.map(c, ReceitaDto.class))
-					.collect(Collectors.toList());
-			
-			return new PageImpl<ReceitaDto>(receitasDto);
-		}	
 	}
 
 	public ResponseEntity<ReceitaDetalhesDto> listaDetalhado(Long id) {
