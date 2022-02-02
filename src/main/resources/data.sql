@@ -32,5 +32,6 @@ INSERT INTO perfil (nome) values ('Guest');
 INSERT INTO usuario (nome, email, senha) values ('Felipe Volpato', 'fvolpato@gmail.com', 
 '$2a$12$bmCCocIcuLQC/j/i/IcamOfrjURmo1oYSTkRJRsR2DTk.a5BqCfCO');
 INSERT INTO usuario_perfis (usuario_id, perfis_id) values (1,1);
+INSERT INTO usuario_perfis (usuario_id, perfis_id) values (1,2);
 
 

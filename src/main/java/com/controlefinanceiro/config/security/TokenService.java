@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.controlefinanceiro.modelo.Usuario;
 
-import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -43,9 +43,14 @@ public class TokenService {
 			return true;
 		}
 		catch(Exception e){
-
 			return false;
 		}
+	}
+
+	public Long getIdUsuario(String token) {
+		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();	
+		Long id = Long.parseLong(claims.getSubject());		
+		return id;
 	}
 
 }
