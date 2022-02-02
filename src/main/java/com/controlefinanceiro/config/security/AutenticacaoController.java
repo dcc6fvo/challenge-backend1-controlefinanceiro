@@ -1,4 +1,4 @@
-package com.controlefinanceiro.controller;
+package com.controlefinanceiro.config.security;
 
 import javax.validation.Valid;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.controlefinanceiro.config.security.TokenService;
+import com.controlefinanceiro.config.validacao.Erro;
 import com.controlefinanceiro.dto.TokenDto;
 import com.controlefinanceiro.form.LoginForm;
 
@@ -38,7 +38,7 @@ public class AutenticacaoController {
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 		} 
 		catch(AuthenticationException ae) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(new Erro("Erro de usuário ou senha"));
 		}
 
 

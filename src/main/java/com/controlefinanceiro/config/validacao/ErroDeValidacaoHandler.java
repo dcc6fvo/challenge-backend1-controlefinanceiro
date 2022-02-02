@@ -44,25 +44,25 @@ public class ErroDeValidacaoHandler {
 		return dto;
 	}
 
-	
+
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Object> handle(HttpMessageNotReadableException ex) {
-			
+
 		Erro erro = new Erro(ex.getMessage());
-		
+
 		return ResponseEntity.internalServerError().body(erro);
 	}
-	
+
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<Object> handle(MethodArgumentTypeMismatchException ex) {
-	
+
 		Erro erro = new Erro(ex.getMessage());
-		
+
 		return ResponseEntity.internalServerError().body(erro);
 	}
-	
+
 	/*
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)
@@ -74,39 +74,49 @@ public class ErroDeValidacaoHandler {
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}*/
-	
+
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<Object> handle(JdbcSQLIntegrityConstraintViolationException ex, 
 			HttpServletRequest request, HttpServletResponse response) {
-		
+
 		ErroDeBanco erro = new ErroDeBanco(ex.getSQL(), ex.getOriginalMessage());
-		
+
 		return ResponseEntity.internalServerError().body(erro);
 	}
 
-	
+
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<Object> handle(DataIntegrityViolationException ex, 
 			HttpServletRequest request, HttpServletResponse response) {
-		
+
 		Erro erro = new Erro(ex.getMessage());
-		
+
 		return ResponseEntity.internalServerError().body(erro);
 	}
-	
-	
+
+
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(java.time.DateTimeException.class)
 	public ResponseEntity<Object> handle(java.time.DateTimeException ex, 
 			HttpServletRequest request, HttpServletResponse response) {
-		
+
 		Erro erro = new Erro(ex.getMessage());
-		
+
 		return ResponseEntity.internalServerError().body(erro);
 	}
-	
-	
+
+
+	/*
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Object> handle(AccessDeniedException ex) {
+
+		Erro erro = new Erro(ex.getMessage());
+
+		System.out.println("erro - nao tem acesso a este recurso verifique a sua autenticacao");
+
+		return ResponseEntity.badRequest().body(erro);
+	}*/
 	
 }
