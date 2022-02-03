@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import com.controlefinanceiro.modelo.Despesa;
 import com.controlefinanceiro.modelo.enums.Categoria;
 import com.controlefinanceiro.repository.DespesaRepository;
+import com.controlefinanceiro.uteis.AnoMesDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 
 public class AtualizacaoDespesaForm {
@@ -20,6 +23,8 @@ public class AtualizacaoDespesaForm {
 	private BigDecimal valor;
 
 	@NotNull
+	@JsonDeserialize(using = AnoMesDeserializer.class)
+	@JsonFormat(pattern = "yyyy-MM")
 	private LocalDate data;
 	
 	private Categoria categoria;

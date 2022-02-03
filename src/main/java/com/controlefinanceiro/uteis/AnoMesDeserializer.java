@@ -15,6 +15,7 @@ public class AnoMesDeserializer extends JsonDeserializer<LocalDate> {
 			DeserializationContext ctxt) throws IOException {
 
 		String value = p.getValueAsString();
+				
 		if (value.isEmpty() == false && value.length()==7) {
 			value = value+"-01";
 			return LocalDate.parse(value, DateTimeFormatter.ISO_DATE);

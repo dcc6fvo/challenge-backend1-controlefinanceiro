@@ -3,8 +3,9 @@ package com.controlefinanceiro;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.controlefinanceiro.controller.DespesaController;
 import com.controlefinanceiro.controller.ReceitaController;

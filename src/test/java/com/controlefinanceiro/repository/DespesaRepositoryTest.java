@@ -1,9 +1,9 @@
 package com.controlefinanceiro.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.LocalDate;
 import java.util.List;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,8 +25,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		String descricao = "Agua";
 	 	List<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(descricao);
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertFalse(despesas.isEmpty());
+	 	assertThat(despesas).isNotNull();
+	 	assertThat(despesas).isNotEmpty();
 	}
 	
 	@Test
@@ -34,8 +34,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		List<Despesa> despesas = despesaRepository.findAll();
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertFalse(despesas.isEmpty());
+	 	assertThat(despesas).isNotNull();
+	 	assertThat(despesas).isNotEmpty();
 	}
 
 	@Test
@@ -46,8 +46,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		Page<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(paging, descricao);
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertTrue(despesas.getTotalElements() > 0);
+		assertThat(despesas).isNotNull();	
+		assertThat(despesas.getTotalElements() > 0).isTrue();
 	}
 		
 	@Test
@@ -58,8 +58,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		Page<Despesa> despesas = despesaRepository.findByData(anoMes,paging);
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertTrue(despesas.getTotalElements() > 0);
+		assertThat(despesas).isNotNull();	
+		assertThat(despesas.getTotalElements() > 0).isTrue();
 	}
 	
 	@Test
@@ -69,8 +69,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		List<Despesa> despesas = despesaRepository.findByData(anoMes);
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertTrue(despesas.size() > 0);
+		assertThat(despesas).isNotNull();	
+		assertThat(despesas.size() > 0).isTrue();
 	}
 	
 	@Test
@@ -81,8 +81,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		List<Despesa> despesas = despesaRepository.findByDataAndCategoria(anoMes, categoria);
 		
-		Assert.assertNotNull(despesas);		
-		Assert.assertTrue(despesas.size() > 0);
+		assertThat(despesas).isNotNull();	
+		assertThat(despesas.size() > 0).isTrue();
 	}
 	
 	@Test
@@ -92,8 +92,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		Double valorTotal = despesaRepository.findSumDespesa(anoMes);
 				
-		Assert.assertNotNull(valorTotal);		
-		Assert.assertTrue(valorTotal > 0D);
+		assertThat(valorTotal).isNotNull();		
+		assertThat(valorTotal > 0D).isTrue();
 	}
 	
 	@Test
@@ -103,8 +103,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		List<DespesaCategoriaAnoMesDto> despesas = despesaRepository.findSumDespesaCategoria(anoMes);
 				
-		Assert.assertNotNull(despesas);		
-		Assert.assertTrue(despesas.size() > 0);
+		assertThat(despesas).isNotNull();		
+		assertThat(despesas.size() > 0).isTrue();
 	}
 	 
 	@Test
@@ -114,7 +114,8 @@ public class DespesaRepositoryTest extends BaseTest{
 		
 		List<Despesa> despesas = despesaRepository.findByDescricaoContainingIgnoreCase(descricao);
 				
-		Assert.assertTrue(despesas.isEmpty());
+		assertThat(despesas.isEmpty()).isTrue();
+		
 	}
 	
 }

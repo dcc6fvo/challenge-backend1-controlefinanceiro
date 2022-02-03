@@ -1,8 +1,9 @@
-package com.controlefinanceiro.config.security;
+package com.controlefinanceiro.controller;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.controlefinanceiro.config.security.TokenService;
 import com.controlefinanceiro.config.validacao.Erro;
 import com.controlefinanceiro.dto.TokenDto;
 import com.controlefinanceiro.form.LoginForm;
 
 @RestController
 @RequestMapping("/auth")
+@Profile(value = { "prod","test" })
 public class AutenticacaoController {
 
 	@Autowired
@@ -38,7 +41,7 @@ public class AutenticacaoController {
 			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 		} 
 		catch(AuthenticationException ae) {
-			return ResponseEntity.badRequest().body(new Erro("Erro de usuário ou senha"));
+			return ResponseEntity.badRequest().body(new Erro("Erro de usuario ou senha"));
 		}
 
 
