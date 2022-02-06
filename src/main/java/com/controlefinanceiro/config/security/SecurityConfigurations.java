@@ -37,7 +37,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	//Configuracoes de autenticacao
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -67,7 +67,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	//Configuracoes de recursos estaticos (js, css, imagens, etc.)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-
+		web.ignoring()
+		.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
 	}
 
 }
