@@ -25,13 +25,20 @@ INSERT INTO despesa (descricao,valor,data,categoria) values ('Futsal semanal', 6
 INSERT INTO despesa (descricao,valor,data,categoria) values ('Bola de futsal', 120.00,'2022-01-01', 'LAZER');
 
 
-INSERT INTO perfil (nome) values ('Admin');
-INSERT INTO perfil (nome) values ('Guest');
+INSERT INTO perfil (nome) values ('ROLE_ADMIN');
+INSERT INTO perfil (nome) values ('ROLE_GUEST');
 
 --senha 123456 
 INSERT INTO usuario (nome, email, senha) values ('Felipe Volpato', 'fvolpato@gmail.com', 
 '$2a$12$bmCCocIcuLQC/j/i/IcamOfrjURmo1oYSTkRJRsR2DTk.a5BqCfCO');
+
+--senha guest
+INSERT INTO usuario (nome, email, senha) values ('guest', 'guest@gmail.com', 
+'$2a$12$JupjDKdi7snLCwtm8mQdiuXCal9s2D4ngTfcQb5EmF5ugba4eK7.6');
+
 INSERT INTO usuario_perfis (usuario_id, perfis_id) values (1,1);
 INSERT INTO usuario_perfis (usuario_id, perfis_id) values (1,2);
+INSERT INTO usuario_perfis (usuario_id, perfis_id) values (2,2);
+
 
 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -92,6 +93,16 @@ public class ErroDeValidacaoHandler {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		Erro erro = new Erro(ex.getMessage());
+
+		return ResponseEntity.internalServerError().body(erro);
+	}
+	
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handle(ConstraintViolationException cve, 
+			HttpServletRequest request, HttpServletResponse response) {
+
+		Erro erro = new Erro(cve.getMessage());
 
 		return ResponseEntity.internalServerError().body(erro);
 	}
