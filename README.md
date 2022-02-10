@@ -1,7 +1,7 @@
 # controlefinanceiro
 Desafio Alura Challenge Back-end v2 - API Rest de controle financeiro doméstico escrita em Java.
 
-![Badge em Desenvolvimento](https://img.shields.io/badge/STATUS-Em%20desenvolvimento-green)
+![Badge em Desenvolvimento](https://img.shields.io/badge/STATUS-Em%20desenvolvimento-success)
 ![License](https://img.shields.io/badge/LICENSE-GPLv2-blue)
 
 
