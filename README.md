@@ -2,7 +2,7 @@
 Desafio Alura Challenge Back-end v2 - API Rest de controle financeiro doméstico escrita em Java.
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
-[![GitHub license](https://badgen.net/github/license/Naereen/Strapdown.js)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+![License](http://img.shields.io/static/v1?label=LICENSE&message=GPLv2&color=BLUE&style=for-the-badge)
 
 
 Tecnologias:
