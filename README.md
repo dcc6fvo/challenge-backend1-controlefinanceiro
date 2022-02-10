@@ -8,7 +8,9 @@ Desafio Alura Challenge Back-end v2 - API Rest de controle financeiro doméstico
 Tecnologias:
 - Java Spring Boot (2.5.8)
 - Maven
-- Database H2 ou MySQL
+- Database H2 e MySQL
+
+Diferenciais de implementação:
 - Modelagem das entidades utilizando herança (conta -> despesa, conta -> receita)
 - Modelagem CRUD utilizando classe YearMonth ou LocalDate
 - Criação de classe de deserializer de LocalDate para utilizar apenas formato YYYY-mm
