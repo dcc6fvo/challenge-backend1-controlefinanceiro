@@ -1,6 +1,8 @@
 # controlefinanceiro
 Desafio Alura Challenge Back-end v2 - API Rest de controle financeiro doméstico escrita em Java.
 
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+
 Tecnologias:
 - Java Spring Boot (2.5.8)
 - Maven
@@ -15,4 +17,4 @@ Tecnologias:
 - Configurações personalizadas de deploy DEV, TEST e PROD
 - Configurações de ROLE (ex. ROLE_ADMIN, ROLE,GUEST..)
 
-![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
+
