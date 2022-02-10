@@ -72,7 +72,7 @@ public class Conta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Despesa other = (Despesa) obj;
+		Conta other = (Conta) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
